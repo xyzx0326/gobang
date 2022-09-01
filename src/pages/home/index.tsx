@@ -1,5 +1,5 @@
 import logo from '@/assets/logo.svg'
-import {SocketUtils} from "@/utils";
+import {nanoid} from "@reduxjs/toolkit";
 
 import React from 'react';
 import {useNavigate} from "react-router-dom";
@@ -15,7 +15,7 @@ function Home() {
             <button onClick={() => navigate("/play/local")}>
                 本地与人对战
             </button>
-            <button onClick={() => navigate(`/play/remote/${SocketUtils.roomId}`)}>
+            <button onClick={() => navigate(`/play/remote/${nanoid()}`)}>
                 线上与人对战
             </button>
             <button onClick={() => navigate("/play/ai")} disabled>

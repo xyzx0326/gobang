@@ -1,5 +1,5 @@
-import {SocketUtils} from "@/utils";
 import {AnyAction} from "@reduxjs/toolkit";
+import {sendAction} from "game-react";
 
 import {useGo} from "./index";
 
@@ -8,7 +8,7 @@ export const useRemoteGo = (mode?: string) => {
     return (action: AnyAction) => {
         go(action)
         if (mode && mode === 'remote') {
-            SocketUtils.send('syncAction', action);
+            sendAction(action)
         }
     };
 }

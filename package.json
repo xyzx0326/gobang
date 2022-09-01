@@ -1,6 +1,7 @@
 {
   "name": "gobang",
   "version": "0.1.0",
+  "homepage": "gobang",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",

@@ -32,6 +32,3 @@ export class CacheUtils {
 }
 
 export const CACHE_RULE_KEY = "rule";
-export const CACHE_BOARD_KEY = "board";
-export const CACHE_ROOM_KEY = "room";
-export const CACHE_PLAYER_KEY = "player";

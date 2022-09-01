@@ -4,10 +4,9 @@ import {Footer, Game, Header, Nav} from '@/components'
 import {boardSize} from "@/config/board";
 import modes from '@/config/modes'
 import {useGo, usePieces, useRemoteGo, useStore} from "@/hooks";
-import {changeSelfColor, GridData, handleRestart, handleSelectGrid} from "@/stores/game";
+import {changeSelfColor, GridData, handleRestart, handleSelectGrid, updateSelfColor} from "@/stores/game";
 import {redo, undo} from "@/stores/history";
-import {SocketUtils} from "@/utils";
-
+import {addRoom, configRoom, leaveRoom, resetAction, useOnline} from 'game-react';
 import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useMount, useUpdateEffect} from "react-use";
@@ -20,8 +19,8 @@ import RuleSetting from "./setting";
 
 const Play = () => {
     const game = useStore(state => state.game);
-    const online = useStore(state => state.online);
     const [pause, setPause] = useState(false);
+    const online = useOnline();
     const pieces = usePieces(game.board);
     const go = useGo();
     const params = useParams();
@@ -42,7 +41,7 @@ const Play = () => {
         }
         if (mode === 'remote') {
             const roomParam = params.roomId!;
-            SocketUtils.addRoom(roomParam)
+            addRoom(roomParam)
         }
     })
 
@@ -67,7 +66,7 @@ const Play = () => {
 
     const onBack = () => {
         if (mode === 'remote') {
-            SocketUtils.levelRoom()
+            leaveRoom()
         }
     };
 
@@ -94,21 +93,50 @@ const Play = () => {
 
     let changeColor = () => {
         go(changeSelfColor());
-        if (mode === 'remote') {
-            SocketUtils.sendConfig();
+        if (mode === "remote" && online.isPlayer) {
+            configRoom({
+                playerConfig: [[updateSelfColor(game.selfIsWhite)], [updateSelfColor(!game.selfIsWhite)]]
+            })
         }
+    }
+    const restartGame = () => {
+        if (mode === "remote" && !online.isPlayer) {
+            return;
+        }
+        go(handleRestart());
+        if (mode === "remote") {
+            resetAction()
+        }
+    }
+    const pauseGame = () => {
+        if (mode === "remote" && !online.isPlayer) {
+            return;
+        }
+        setPause(!pause);
+    }
+    const undoGame = () => {
+        if (mode === "remote" && !online.isPlayer) {
+            return;
+        }
+        remoteGo(undo(opStep));
+    }
+    const redoGame = () => {
+        if (mode === "remote" && !online.isPlayer) {
+            return;
+        }
+        remoteGo(redo(opStep));
     }
     return (
         <div className="main" style={{width: `${boardSize.board}px`}}>
             <Nav title={cfg.title} onBack={onBack}/>
-            <Header mode={mode} selfIsWhite={game.selfIsWhite} otherSideOnline={online.otherSideOnline}
+            <Header mode={mode} selfIsWhite={game.selfIsWhite} otherSideOnline={online.playerCount === 2}
                     channelId={params.roomId ? params.roomId!.substring(0, 4) : ''}/>
             <div className="board">
                 <div className="board-header">
                     <div>
-                        <button style={{marginRight: '10px'}} onClick={() => remoteGo(handleRestart())}>重开
+                        <button style={{marginRight: '10px'}} onClick={restartGame}>重开
                         </button>
-                        <button style={{marginRight: '10px'}} onClick={() => setPause(!pause)}>{pause ? '开始' : '暂停'}
+                        <button style={{marginRight: '10px'}} onClick={pauseGame}>{pause ? '开始' : '暂停'}
                         </button>
                     </div>
                     {!game.gameIsEnd ?
@@ -130,15 +158,15 @@ const Play = () => {
                     />
                 </div>
             </div>
-            <Footer mode={mode} selfIsWhite={game.selfIsWhite}>
+            <Footer mode={mode} selfIsWhite={game.selfIsWhite} isViewer={!online.isPlayer}>
                 {game.steps === 0 ?
                     <button onClick={changeColor}>
                         换手
                     </button> :
                     <>
-                        <button onClick={() => remoteGo(undo(opStep))} disabled={game.gameIsEnd}>悔棋
+                        <button onClick={undoGame} disabled={game.gameIsEnd}>悔棋
                         </button>
-                        <button onClick={() => remoteGo(redo(opStep))} disabled={game.gameIsEnd}>重走
+                        <button onClick={redoGame} disabled={game.gameIsEnd}>重走
                         </button>
                         <button onClick={() => setOpen(true)}>
                             记录

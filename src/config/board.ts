@@ -1,6 +1,3 @@
-// 默认棋盘
-// 每四个表示一行，每个数字表示一个棋子，0表示空位
-// 大于0表示白棋，小于0表示黑棋
 
 const basic = Math.min(window.innerWidth, window.innerHeight, 640) - 20;
 

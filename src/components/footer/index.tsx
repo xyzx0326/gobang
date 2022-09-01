@@ -7,19 +7,22 @@ import './index.scss'
 
 export type FooterProps = {
     mode: string,
-    selfIsWhite: boolean
+    selfIsWhite: boolean,
+    isViewer: boolean
 } & PropsWithChildren
 
-const Footer: React.FC<FooterProps> = ({mode, selfIsWhite, children}) => {
+const Footer: React.FC<FooterProps> = ({mode, selfIsWhite, isViewer, children}) => {
     return (
         <div className="footer">
             {mode !== 'local' ?
                 <div className="color-piece">
-                    <img className="piece-img"
-                         src={selfIsWhite ? white : black}
-                         alt=""
-                    />
-                    <span>己方执{selfIsWhite ? '白' : '黑'}</span>
+                    {isViewer ? <span>观众席</span> : <>
+                        <img className="piece-img"
+                             src={selfIsWhite ? white : black}
+                             alt=""
+                        />
+                        <span>己方执{selfIsWhite ? '白' : '黑'}</span></>
+                    }
                 </div> : <></>
             }
             <div className="btns">
