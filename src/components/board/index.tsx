@@ -1,3 +1,4 @@
+import {SelectLine} from "@/components";
 import {BoardSizeType} from "@/config/board";
 import {GridData} from "@/stores/game";
 
@@ -5,7 +6,6 @@ import Konva from "konva";
 import {LineCap, LineJoin} from "konva/lib/Shape";
 import React, {useEffect, useState} from 'react';
 import {Group, Layer, Line, Rect} from "react-konva";
-import SelectLine from "../select";
 
 type BoardProps = {
     boardSize: BoardSizeType;

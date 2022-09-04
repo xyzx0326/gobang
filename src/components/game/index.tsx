@@ -9,15 +9,15 @@ type GameProps = {
     pieces: PieceType[]; // 棋子数据
     selectGrid?: GridData; // 选择的棋子
     selfIsWhite?: boolean;
+    gameIsEnd?: boolean;
     boardSize: BoardSizeType; // 棋盘规格
 
     onGridSelect?: (data: GridData) => void;
-    onPiecePut?: (data: number) => void;
 }
 
 const Game: React.FC<GameProps> = ({
-                                       pieces, selectGrid,selfIsWhite, boardSize,
-                                       onGridSelect, onPiecePut
+                                       pieces, selectGrid, selfIsWhite,
+                                       gameIsEnd, boardSize, onGridSelect
                                    }) => {
     const {board, boardGrid, boardEdge, pieceRadius} = boardSize
 
@@ -32,6 +32,8 @@ const Game: React.FC<GameProps> = ({
                                   colIndex={piece.colIndex}
                                   boardGrid={boardGrid}
                                   radius={pieceRadius}
+                                  isEnd={gameIsEnd}
+                                  isLast={piece.isLast}
                     />;
                 })}
             </Layer>

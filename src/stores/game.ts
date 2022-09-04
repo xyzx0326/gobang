@@ -6,6 +6,7 @@ export type PieceType = {
     rowIndex: number;
     colIndex: number;
     num: number;
+    isLast: boolean;
 };
 
 export type GridData = { rowIndex: number; colIndex: number };
@@ -47,6 +48,7 @@ export const gameSlice = createSlice({
         handleRestart(state) {
             state.gameIsEnd = false;
             state.stepIsWhite = false;
+            state.selectGrid = undefined;
             state.steps = 0;
             state.board = []
         },

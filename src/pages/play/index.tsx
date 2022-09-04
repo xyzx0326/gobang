@@ -156,16 +156,17 @@ const Play = () => {
                         selfIsWhite={game.stepIsWhite}
                         boardSize={boardSize}
                         pieces={pieces}
+                        gameIsEnd={game.gameIsEnd}
                         onGridSelect={handleGrid}
                     />
                 </div>
             </div>
             <Footer mode={mode} selfIsWhite={game.selfIsWhite} isViewer={!online.isPlayer}>
                 {game.steps === 0 ?
-                    mode === "local" ? <></>:
-                    <button onClick={changeColor}>
-                        换手
-                    </button> :
+                    mode === "local" ? <></> :
+                        <button onClick={changeColor}>
+                            换手
+                        </button> :
                     <>
                         <button onClick={undoGame} disabled={game.gameIsEnd}>悔棋
                         </button>
