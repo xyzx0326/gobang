@@ -1,8 +1,9 @@
 const rules = {
-
+    "default" : {}
 };
 
 export const defaultRule = {
+    "default" : true
 }
 
 export default rules;

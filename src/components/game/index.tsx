@@ -8,6 +8,7 @@ import {Layer, Stage} from "react-konva";
 type GameProps = {
     pieces: PieceType[]; // 棋子数据
     selectGrid?: GridData; // 选择的棋子
+    selfIsWhite?: boolean;
     boardSize: BoardSizeType; // 棋盘规格
 
     onGridSelect?: (data: GridData) => void;
@@ -15,14 +16,14 @@ type GameProps = {
 }
 
 const Game: React.FC<GameProps> = ({
-                                       pieces, selectGrid, boardSize,
+                                       pieces, selectGrid,selfIsWhite, boardSize,
                                        onGridSelect, onPiecePut
                                    }) => {
     const {board, boardGrid, boardEdge, pieceRadius} = boardSize
 
     return (
         <Stage width={board} height={board}>
-            <Board boardSize={boardSize} selectGrid={selectGrid} onGridSelect={onGridSelect}/>
+            <Board boardSize={boardSize} selectGrid={selectGrid} selfIsWhite={selfIsWhite} onGridSelect={onGridSelect}/>
             <Layer x={boardEdge} y={boardEdge}>
                 {pieces.map(piece => {
                     return <Piece key={piece.num}

@@ -15,7 +15,6 @@ export type GameFrameData = {
     board: number[]; // 棋盘
     selfIsWhite?: boolean; // 自己是白方
     stepIsWhite?: boolean;// 轮到白方走棋
-    onlyShow: boolean,
     onlyOnePieceStep?: number;// 某方只剩一个棋子，大于0表示白方，小于0表示黑方，绝对值表示步数
     gameIsEnd?: boolean;// 游戏是否结束
     selectGrid: GridData | undefined,
@@ -31,7 +30,6 @@ const initialState = {
     selfIsWhite: false,
     stepIsWhite: false,
     gameIsEnd: false,
-    onlyShow: false,
 
     otherSideOnline: false,
     selectGrid: undefined,
@@ -89,10 +87,6 @@ export const gameSlice = createSlice({
             state.rule[payload.key as RuleKey] = payload.value
             CacheUtils.setItem(CACHE_RULE_KEY, state.rule)
         },
-
-        updateShow(state, {payload}) {
-            state.onlyShow = payload;
-        }
 
     },
 })

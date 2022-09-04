@@ -28,6 +28,12 @@ const Piece: React.FC<NavProps> = ({
     const image = new Image();
     image.src = num > 0 ? white : black;
 
+    const shadow = {
+        shadowColor: "#000",
+        shadowBlur: 5,
+        shadowOffset: {x: 2, y: 3},
+        shadowOpacity: 0.6
+    }
 
     return (
         <Group
@@ -41,10 +47,7 @@ const Piece: React.FC<NavProps> = ({
                 height={radius * 2}
                 x={-radius}
                 y={-radius}
-                shadowColor="#000"
-                shadowBlur={1}
-                shadowOffset={{x: 1, y: 1}}
-                shadowOpacity={0.1}
+                {...shadow}
             />
         </Group>
     );

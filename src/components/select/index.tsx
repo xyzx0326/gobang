@@ -3,12 +3,13 @@ import React, {useEffect, useRef} from "react";
 import {Group, Line} from "react-konva";
 
 type SelectLineProps = {
-    boardGrid: number
+    boardGrid: number,
+    color: string,
     x: number
     y: number
 }
 
-const SelectLine: React.FC<SelectLineProps> = ({boardGrid, x, y}) => {
+const SelectLine: React.FC<SelectLineProps> = ({boardGrid, color, x, y}) => {
     const lineNode = useRef<Konva.Line>(null);
     const groupNode = useRef<Konva.Group>(null);
 
@@ -31,6 +32,12 @@ const SelectLine: React.FC<SelectLineProps> = ({boardGrid, x, y}) => {
             anim.stop()
         };
     })
+    const shadow = {
+        shadowColor: "#000",
+        shadowBlur: 5,
+        shadowOffset: {x: 2, y: 3},
+        shadowOpacity: 0.6
+    }
 
     return <Group ref={groupNode} x={x} y={y}>
         <Line
@@ -41,20 +48,22 @@ const SelectLine: React.FC<SelectLineProps> = ({boardGrid, x, y}) => {
                 -x1, -y1,
                 -x1, y1,
             ]}
-            stroke='#777'
+            stroke={color}
             lineCap='round'
             lineJoin='round'
             dash={[solid, blank]}
             tension={0.5}
             closed={true}
             strokeWidth={strokeWidth}
+            {...shadow}
         />
         <Line
-            points={[0, 0, 0, 0]}
-            stroke='#777'
+            points={[0, 0, 0.01, 0.01]}
+            stroke={color}
             lineCap='round'
             lineJoin='round'
-            strokeWidth={strokeWidth*2.5}
+            strokeWidth={strokeWidth * 2.5}
+            {...shadow}
         />
     </Group>;
 }

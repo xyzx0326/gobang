@@ -15,7 +15,7 @@ type RecordProps = {
 }
 
 const StepRecord: React.FC<RecordProps> = ({open, mode, onClose}) => {
-    const gameStore = useStore(state => state.game);
+    const game = useStore(state => state.game);
     const [stepIndex, setStepIndex] = useState(1);
     const [gameInfo, setGameInfo] = useState<GameFrameData | undefined>(undefined);
     const pieces = usePieces(gameInfo?.board);
@@ -54,16 +54,16 @@ const StepRecord: React.FC<RecordProps> = ({open, mode, onClose}) => {
                 pieces={pieces}
             />
             <div className="step-group">
-                <span>{stepIndex}/{gameStore.steps}</span>
+                <span>{stepIndex}/{game.steps}</span>
             </div>
             <div className="step-group">
                 <button onClick={() => setStepIndex(stepIndex - 1)} disabled={stepIndex === 1}>
                     上一步
                 </button>
-                <button style={{margin: "0 10px"}} onClick={gotoStep}>
+                <button style={{margin: "0 10px"}} onClick={gotoStep} disabled={game.gameIsEnd}>
                     回到这里
                 </button>
-                <button onClick={onClick} disabled={stepIndex === gameStore.steps}>
+                <button onClick={onClick} disabled={stepIndex === game.steps}>
                     下一步
                 </button>
             </div>

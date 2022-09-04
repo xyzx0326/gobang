@@ -92,11 +92,12 @@ const Play = () => {
 
 
     let changeColor = () => {
-        go(changeSelfColor());
         if (mode === "remote" && online.isPlayer) {
             configRoom({
-                playerConfig: [[updateSelfColor(game.selfIsWhite)], [updateSelfColor(!game.selfIsWhite)]]
+                playerConfig: [[updateSelfColor(!game.selfIsWhite)], [updateSelfColor(game.selfIsWhite)]]
             })
+        } else {
+            go(changeSelfColor());
         }
     }
     const restartGame = () => {
@@ -152,6 +153,7 @@ const Play = () => {
                      style={{height: `${boardSize.board}px`}}>
                     <Game
                         selectGrid={game.selectGrid}
+                        selfIsWhite={game.stepIsWhite}
                         boardSize={boardSize}
                         pieces={pieces}
                         onGridSelect={handleGrid}
@@ -160,6 +162,7 @@ const Play = () => {
             </div>
             <Footer mode={mode} selfIsWhite={game.selfIsWhite} isViewer={!online.isPlayer}>
                 {game.steps === 0 ?
+                    mode === "local" ? <></>:
                     <button onClick={changeColor}>
                         换手
                     </button> :

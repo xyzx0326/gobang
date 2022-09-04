@@ -9,13 +9,14 @@ import SelectLine from "../select";
 
 type BoardProps = {
     boardSize: BoardSizeType;
+    selfIsWhite?: boolean;
     selectGrid: GridData | undefined;
 
     onGridSelect?: (data: GridData) => void;
 }
 
 
-const Board: React.FC<BoardProps> = ({boardSize, selectGrid, onGridSelect}) => {
+const Board: React.FC<BoardProps> = ({boardSize, selfIsWhite, selectGrid, onGridSelect}) => {
     const [lines, setLines] = useState<Konva.LineConfig[]>([]);
     const [rects, setRects] = useState<Konva.RectConfig[]>([]);
     const {board, boardGrid, boardEdge} = boardSize;
@@ -121,8 +122,11 @@ const Board: React.FC<BoardProps> = ({boardSize, selectGrid, onGridSelect}) => {
                 )}
             </Group>
             <Group x={boardEdge - boardGrid / 2} y={boardEdge - boardGrid / 2}>
-                {selectGrid ? <SelectLine boardGrid={boardGrid} x={selectGrid.colIndex * boardGrid + boardGrid / 2}
-                                          y={selectGrid.rowIndex * boardGrid + boardGrid / 2}/> : <></>}
+                {selectGrid ? <SelectLine boardGrid={boardGrid}
+                                          color={selfIsWhite ? "#fff" : "#000"}
+                                          x={selectGrid.colIndex * boardGrid + boardGrid / 2}
+                                          y={selectGrid.rowIndex * boardGrid + boardGrid / 2}
+                /> : <></>}
                 {rects.map((rect, i) =>
                     <Rect
                         key={i}
