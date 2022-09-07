@@ -89,6 +89,7 @@ export class GameUtils {
 
         function handle(index: number, flagIndex: number) {
             if (!board[index]) {
+                direction[flagIndex].flag = false;
                 return
             }
             const countIndex = Math.floor(flagIndex / 2);

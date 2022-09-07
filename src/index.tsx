@@ -18,8 +18,8 @@ configClient("ws://" + url + "/game/ws", {
     maxPlayer: 2,
     baseConfig: [],
     playerConfig: [[updateSelfColor(false)], [updateSelfColor(true)]],
-    configCallback: store.dispatch,
-    actionCallback: store.dispatch
+    onConfig: store.dispatch,
+    onAction: store.dispatch
 }, "gobang")
 
 const root = ReactDOM.createRoot(

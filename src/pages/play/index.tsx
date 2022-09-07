@@ -6,7 +6,7 @@ import modes from '@/config/modes'
 import {useGo, usePieces, useRemoteGo, useStore} from "@/hooks";
 import {changeSelfColor, GridData, handleRestart, handleSelectGrid, updateSelfColor} from "@/stores/game";
 import {redo, undo} from "@/stores/history";
-import {addRoom, configRoom, leaveRoom, resetAction, useOnline} from 'game-react';
+import {addRoom, configRoom, leaveRoom, resetRoom, useOnline} from 'game-react';
 import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useMount, useUpdateEffect} from "react-use";
@@ -93,20 +93,25 @@ const Play = () => {
 
     let changeColor = () => {
         if (mode === "remote" && online.isPlayer) {
-            configRoom({
-                playerConfig: [[updateSelfColor(!game.selfIsWhite)], [updateSelfColor(game.selfIsWhite)]]
-            })
-        } else {
+            const index = online?.myIndex;
+            const playerConfig = [[updateSelfColor(game.selfIsWhite)], [updateSelfColor(!game.selfIsWhite)]];
+            playerConfig[index] = [updateSelfColor(!game.selfIsWhite)]
+            playerConfig[1 - index] = [updateSelfColor(game.selfIsWhite)]
+            configRoom({playerConfig})
+        } else if (mode === "ai"){
             go(changeSelfColor());
         }
     }
     const restartGame = () => {
+        if (game.gameIsEnd) {
+            changeColor();
+        }
         if (mode === "remote" && !online.isPlayer) {
             return;
         }
-        go(handleRestart());
+        remoteGo(handleRestart());
         if (mode === "remote") {
-            resetAction()
+            resetRoom()
         }
     }
     const pauseGame = () => {

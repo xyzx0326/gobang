@@ -42,35 +42,35 @@ const Board: React.FC<BoardProps> = ({boardSize, selfIsWhite, selectGrid, onGrid
             });
         }
         ret.push({
-            points: [dot1, dot1, dot1, dot1],
+            points: [dot1, dot1, dot1, dot1+0.01],
             stroke: lineColor,
             strokeWidth: dotWidth,
             lineCap: 'round' as LineCap,
             lineJoin: 'round' as LineJoin
         })
         ret.push({
-            points: [dot3, dot3, dot3, dot3],
+            points: [dot3, dot3, dot3, dot3+0.01],
             stroke: lineColor,
             strokeWidth: dotWidth,
             lineCap: 'round' as LineCap,
             lineJoin: 'round' as LineJoin
         })
         ret.push({
-            points: [dot1, dot3, dot1, dot3],
+            points: [dot1, dot3, dot1, dot3+0.01],
             stroke: lineColor,
             strokeWidth: dotWidth,
             lineCap: 'round' as LineCap,
             lineJoin: 'round' as LineJoin
         })
         ret.push({
-            points: [dot3, dot1, dot3, dot1],
+            points: [dot3, dot1, dot3, dot1+0.01],
             stroke: lineColor,
             strokeWidth: dotWidth,
             lineCap: 'round' as LineCap,
             lineJoin: 'round' as LineJoin
         })
         ret.push({
-            points: [dot2, dot2, dot2, dot2],
+            points: [dot2, dot2, dot2, dot2+0.01],
             stroke: lineColor,
             strokeWidth: dotWidth,
             lineCap: 'round' as LineCap,
