@@ -10,7 +10,6 @@ import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 
 // const url = "localhost:8888";
 const url = "game.congeer.com";
@@ -36,5 +35,3 @@ root.render(<Provider store={store}>
         </BrowserRouter>
     </Provider>
 );
-
-reportWebVitals();
