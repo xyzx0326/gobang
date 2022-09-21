@@ -3,6 +3,7 @@ import {boardScale, boardSize} from "@/config/board";
 import {usePieces, useRemoteGo, useStore} from "@/hooks";
 import {GameFrameData} from "@/stores/game";
 import history, {goto} from "@/stores/history";
+import { useOnline } from "game-react";
 
 import React, {useEffect, useState} from 'react';
 
@@ -17,6 +18,7 @@ type RecordProps = {
 const StepRecord: React.FC<RecordProps> = ({open, mode, onClose}) => {
     const game = useStore(state => state.game);
     const [stepIndex, setStepIndex] = useState(1);
+    const online = useOnline();
     const [gameInfo, setGameInfo] = useState<GameFrameData | undefined>(undefined);
     const pieces = usePieces(gameInfo?.board);
     const go = useRemoteGo(mode);
@@ -36,6 +38,9 @@ const StepRecord: React.FC<RecordProps> = ({open, mode, onClose}) => {
     }
 
     const gotoStep = () => {
+        if (!online.isPlayer) {
+            return;
+        }
         go(goto(stepIndex - 1))
         onClose()
     }
@@ -60,7 +65,7 @@ const StepRecord: React.FC<RecordProps> = ({open, mode, onClose}) => {
                 <button onClick={() => setStepIndex(stepIndex - 1)} disabled={stepIndex === 1}>
                     上一步
                 </button>
-                <button style={{margin: "0 10px"}} onClick={gotoStep} disabled={game.gameIsEnd}>
+                <button style={{margin: "0 10px"}} onClick={gotoStep} disabled={game.gameIsEnd || !online.isPlayer}>
                     回到这里
                 </button>
                 <button onClick={onClick} disabled={stepIndex === game.steps}>

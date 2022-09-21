@@ -98,7 +98,7 @@ const Play = () => {
             playerConfig[index] = [updateSelfColor(!game.selfIsWhite)]
             playerConfig[1 - index] = [updateSelfColor(game.selfIsWhite)]
             configRoom({playerConfig})
-        } else if (mode === "ai"){
+        } else if (mode === "ai") {
             go(changeSelfColor());
         }
     }
@@ -140,9 +140,8 @@ const Play = () => {
             <div className="board">
                 <div className="board-header">
                     <div>
-                        <button style={{marginRight: '10px'}} onClick={restartGame}>重开
-                        </button>
-                        <button style={{marginRight: '10px'}} onClick={pauseGame}>{pause ? '开始' : '暂停'}
+                        <button style={{marginRight: '10px'}} onClick={restartGame}
+                                disabled={!game.gameIsEnd || !online.isPlayer}>重开
                         </button>
                     </div>
                     {!game.gameIsEnd ?
@@ -173,9 +172,9 @@ const Play = () => {
                             换手
                         </button> :
                     <>
-                        <button onClick={undoGame} disabled={game.gameIsEnd}>悔棋
+                        <button onClick={undoGame} disabled={game.gameIsEnd || !online.isPlayer}>悔棋
                         </button>
-                        <button onClick={redoGame} disabled={game.gameIsEnd}>重走
+                        <button onClick={redoGame} disabled={game.gameIsEnd || !online.isPlayer}>重走
                         </button>
                         <button onClick={() => setOpen(true)}>
                             记录
