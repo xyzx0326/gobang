@@ -1,5 +1,5 @@
 import {AnyAction} from "@reduxjs/toolkit";
-import {sendAction} from "game-react";
+import {sendFrame} from "game-react";
 
 import {useGo} from "./index";
 
@@ -8,7 +8,7 @@ export const useRemoteGo = (mode?: string) => {
     return (action: AnyAction) => {
         go(action)
         if (mode && mode === 'remote') {
-            sendAction(action)
+            sendFrame(action)
         }
     };
 }

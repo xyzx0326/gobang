@@ -11,14 +11,15 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import './index.css';
 
-// const url = "localhost:8888";
-const url = "game.congeer.com";
+const url = "localhost:8888";
+// const url = "game.congeer.com";
 configClient("ws://" + url + "/game/ws", {
     maxPlayer: 2,
     baseConfig: [],
-    playerConfig: [[updateSelfColor(false)], [updateSelfColor(true)]],
+    debug: true,
+    playerConfig: [[JSON.stringify(updateSelfColor(false))], [JSON.stringify(updateSelfColor(true))]],
     onConfig: store.dispatch,
-    onAction: store.dispatch
+    onFrame: store.dispatch
 }, "gobang")
 
 const root = ReactDOM.createRoot(
