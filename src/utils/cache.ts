@@ -31,4 +31,4 @@ export class CacheUtils {
     }
 }
 
-export const CACHE_RULE_KEY = "rule";
+export const CACHE_RULE_KEY = "gobang_rule";

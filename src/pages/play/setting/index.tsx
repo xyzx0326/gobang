@@ -1,4 +1,4 @@
-import {Modal} from "@/components";
+import {Modal} from "@illuxiza/one-client-react";
 import {boardSize} from "@/config/board";
 
 import React from 'react';

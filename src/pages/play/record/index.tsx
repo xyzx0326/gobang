@@ -1,9 +1,9 @@
-import {Game, Modal} from "@/components";
+import {Game} from "@/components";
+import {Modal} from "@illuxiza/one-client-react";
 import {boardScale, boardSize} from "@/config/board";
 import {usePieces, useRemoteGo, useStore} from "@/hooks";
 import {GameFrameData} from "@/stores/game";
-import history, {goto} from "@/stores/history";
-import { useOnline } from "game-react";
+import {goto, history, useOnline} from "@illuxiza/one-client-react";
 
 import React, {useEffect, useState} from 'react';
 

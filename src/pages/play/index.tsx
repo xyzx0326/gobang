@@ -5,8 +5,8 @@ import {boardSize} from "@/config/board";
 import modes from '@/config/modes'
 import {useGo, usePieces, useRemoteGo, useStore} from "@/hooks";
 import {changeSelfColor, GridData, handleRestart, handleSelectGrid, updateSelfColor} from "@/stores/game";
-import {redo, undo} from "@/stores/history";
-import {addRoom, configRoom, leaveRoom, resetRoom, useOnline} from 'game-react';
+import {addRoom, configRoom, leaveRoom, resetRoom,} from '@illuxiza/one-client';
+import {redo, undo, useOnline} from "@illuxiza/one-client-react";
 import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useMount, useUpdateEffect} from "react-use";

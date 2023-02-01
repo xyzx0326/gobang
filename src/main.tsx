@@ -2,18 +2,18 @@ import {Home, Play} from '@/pages';
 import {store} from "@/stores";
 import {updateSelfColor} from "@/stores/game";
 
-import {configClient} from 'game-react'
+import {configClient} from '@illuxiza/one-client'
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import './index.css';
+import '@illuxiza/one-client-react/index.scss';
 
-const url = "localhost:8888";
-// const url = "game.congeer.com";
-configClient("ws://" + url + "/game/ws", {
+// const url = "localhost:8888";
+const url = "game.congeer.com";
+configClient("ws://" + url + "/game-tmp/ws", {
     maxPlayer: 2,
     baseConfig: [],
     debug: true,
